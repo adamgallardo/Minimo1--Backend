@@ -4,6 +4,7 @@ import Logging from '../library/Logging';
 import { IUser } from '../models/User';
 import { ISchedule } from '../models/Schedule';
 import { IAsignatura } from '../models/Asignatura';
+import { IValoration } from '../models/Valoration';
 
 export const ValidateSchema = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -54,6 +55,20 @@ export const Schemas = {
         update: Joi.object<IAsignatura>({
             name: Joi.string().required(),
             schedule: Joi.array().required()
+        })
+    },
+    valoration: {
+        create: Joi.object<IValoration>({
+            name: Joi.string().required(),
+            mark: Joi.number().required(),
+            user: Joi.string().length(24).hex().required(),
+            participation: Joi.boolean().required()
+        }),
+        update: Joi.object<IValoration>({
+            name: Joi.string().required(),
+            mark: Joi.number().required(),
+            user: Joi.string().length(24).hex(),
+            participation: Joi.boolean().required()
         })
     }
 };
